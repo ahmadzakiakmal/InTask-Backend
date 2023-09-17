@@ -7,6 +7,9 @@ const process = require("process");
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
+const connectDB = require("./config/connectDB");
+connectDB(process.env.MONGO_URI);
+
 app.get("/", (req, res) => {
   res.send("<h1>InTask Backend</h1>");
 });
