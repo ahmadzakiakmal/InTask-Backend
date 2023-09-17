@@ -14,6 +14,9 @@ app.get("/", (req, res) => {
   res.send("<h1>InTask Backend</h1>");
 });
 
+const userRouter = require("./routes/user");
+app.use("/users", userRouter);
+
 const port = process.env.API_PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
