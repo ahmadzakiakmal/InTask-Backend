@@ -1,3 +1,5 @@
+const { removeContributor } = require("../controllers/owners");
+
 const ownerRouter = require("express").Router();
 
 
@@ -14,7 +16,7 @@ const ownerRouter = require("express").Router();
 
 
 // TODO: Remove contributor
-
+ownerRouter.delete('/contributor', removeContributor)
 
 
 // TODO: Share / change project privacy
