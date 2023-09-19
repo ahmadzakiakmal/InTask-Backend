@@ -1,5 +1,6 @@
 const Project = require("../models/project")
 
+//remove contributor
 const removeContributor = async (req, res) => {
     try {
         const {projectId, contributor} = req.query
@@ -19,7 +20,7 @@ const removeContributor = async (req, res) => {
     }
 }
 
-
+//delete project
 const deleteProject = async (req, res) => {
     const {projectId} = req.params.projectId;
     try{
@@ -35,7 +36,34 @@ const deleteProject = async (req, res) => {
         res.status(500).json(err);
     }
 }
+
+//add contributor
+const addContributor = async (req, res) => {
+    try {
+        const { projectId, contributor } = req.body;
+
+        const project = await Project.findById(projectId);
+
+        if (!project) {
+            return res.status(404).json({ message: "project not found" });
+        }
+
+        if (project.contributors.includes(contributor)) {
+            return res.status(400).json({ message: "contributor already exists" });
+        }
+
+        project.contributors.push(contributor);
+
+        await project.save();
+
+        res.status(200).json({ message: `${contributor} is added to ${projectId}`, project });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
 module.exports = {
     removeContributor,
-    deleteProject
+    deleteProject,
+    addContributor
 }
