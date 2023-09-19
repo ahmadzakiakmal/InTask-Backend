@@ -13,7 +13,7 @@ ownerRouter.delete('/project/:project_id', deleteProject);
 
 
 // TODO: Add contributor
-
+ownerRouter.post('/project/add_contributor', addContributor);
 
 
 // TODO: Remove contributor
