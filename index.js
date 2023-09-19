@@ -17,6 +17,9 @@ app.get("/", (req, res) => {
 const userRouter = require("./routes/user");
 app.use("/users", userRouter);
 
+const ownerRouter = require("./routes/owner");
+app.use("/owners", ownerRouter);
+
 const port = process.env.API_PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

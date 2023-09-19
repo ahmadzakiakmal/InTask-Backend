@@ -19,6 +19,23 @@ const removeContributor = async (req, res) => {
     }
 }
 
+
+const deleteProject = async (req, res) => {
+    const {projectId} = req.params.projectId;
+    try{
+        const deletedProject = await Project.findByIdAndDelete(projectId);
+
+        if (!deletedProject) {
+            return res.status(404).json({ message: "Project Not Found" });
+        }
+
+        res.status(200).json({ message: "Project Succesfully Deleted" });
+    }
+    catch(err){
+        res.status(500).json(err);
+    }
+}
 module.exports = {
-    removeContributor
+    removeContributor,
+    deleteProject
 }
