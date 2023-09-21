@@ -4,7 +4,7 @@ const projectSchema = new mongoose.Schema({
   title: String,
   contributors: [{
     type: String,  //contributor's username
-    ref: 'User'
+    ref: "User"
   }]
 
 });

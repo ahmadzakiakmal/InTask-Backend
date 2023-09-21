@@ -1,4 +1,4 @@
-const { removeContributor } = require("../controllers/owners");
+const { removeContributor, addContributor } = require("../controllers/owners");
 const { deleteProject} = require("../controllers/owners");
 
 const ownerRouter = require("express").Router();
@@ -9,15 +9,15 @@ const ownerRouter = require("express").Router();
 
 
 // TODO: Delete project
-ownerRouter.delete('/project/:project_id', deleteProject);
+ownerRouter.delete("/project/:project_id", deleteProject);
 
 
 // TODO: Add contributor
-ownerRouter.post('/project/add_contributor', addContributor);
+ownerRouter.post("/project/add_contributor", addContributor);
 
 
 // TODO: Remove contributor
-ownerRouter.delete('/contributor', removeContributor)
+ownerRouter.delete("/contributor", removeContributor);
 
 
 
