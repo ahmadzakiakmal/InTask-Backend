@@ -1,22 +1,15 @@
 const User = require("../models/user");
 
-// ! TEST ONLY
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
-  }
-};
-
 // TODO: User login
-
+const login = (req, res) => {
+  res.send("User login endpoint");
+};
 
 
 // TODO: User register
-
+const register = (req, res) => {
+  res.send("User register endpoint");
+};
 
 
 // TODO: User logout
@@ -52,5 +45,5 @@ const getAllUsers = async (req, res) => {
 
 
 module.exports = {
-  getAllUsers,
+  login, register
 };
