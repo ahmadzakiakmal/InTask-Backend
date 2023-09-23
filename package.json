@@ -2,9 +2,9 @@
   "name": "intask-backend",
   "version": "1.0.0",
   "description": "Backend for InTask web app",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon ./src/index.js",
     "lint": "eslint ."
   },
   "author": "",
