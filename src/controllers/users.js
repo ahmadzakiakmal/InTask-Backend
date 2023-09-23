@@ -15,12 +15,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// TODO: User login
-const login = (req, res) => {
-  res.send("User login endpoint");
-};
-
-// TODO: User register
+// * User register
 const register = async (req, res) => {
   const { username, realName, email, password } = req.body;
 
@@ -33,7 +28,9 @@ const register = async (req, res) => {
   }
 
   // Check if user already exists
-  const check = await User.findOne({ $or : [{username: username}, {email: email}]});
+  const check = await User.findOne({
+    $or: [{ username: username }, { email: email }],
+  });
   if (check) {
     return res.status(400).send({
       message: "User already exists",
@@ -68,28 +65,33 @@ const register = async (req, res) => {
     verified: false,
   });
 
+  const mailOptions = {
+    from: process.env.NODEMAILER_EMAIL,
+    to: email,
+    subject: "Verify your account",
+    html: `<h1>Verify your account</h1>
+  <p>Click <a href="${process.env.API_URL}/user/verify/?token=${token}">here</a> to verify your account</p>`,
+  };
+  transporter
+    .sendMail(mailOptions)
+    .then(() => {
+      console.log(`Email sent to ${email}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).send({
+        message: "Error occured while sending email",
+        code: err.code,
+      });
+    });
+
   newUser
     .save(newUser)
     .then(() => {
-      // Send verification email
-      const mailOptions = {
-        from: process.env.NODEMAILER_EMAIL,
-        to: email,
-        subject: "Verify your account",
-        html: `<h1>Verify your account</h1>
-      <p>Click <a href="http://localhost:3000/user/verify/${token}">here</a> to verify your account</p>`,
-      };
-      transporter.sendMail(mailOptions)
-        .then(() => {
-          console.log(`Email sent to ${email}`);
-        })
-        .catch((err) => {
-          console.log(err);
-          return res.status(500).send({
-            message: "Error occured while sending email",
-            code: err.code,
-          });
-        });
+      return res.status(201).send({
+        message: "User created successfully, please verify your email",
+        code: 201,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -98,11 +100,52 @@ const register = async (req, res) => {
         code: err.code,
       });
     });
+};
 
-  return res.status(201).send({
-    message: "User created successfully, please verify your email",
-    code: 201,
+// *  User verify email
+const verify = (req, res) => {
+  const token = req.query.token;
+  console.log(token);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(
+        "<h3>[400] Invalid token</h3>"
+      );
+    }
+
+    const email = decoded.email;
+    console.log(email);
+
+    User.findOne({email: email})
+      .then((user) => {
+        user.verified = true;
+        user.save()
+          .then(() => {
+            return res.status(200).send(`
+              <h3>Account verified successfully</h3>
+              <p>You can now login <a href="${process.env.CLIENT_URL}/login">here</a></p>`);
+          })
+          .catch((err) => {
+            console.log(err);
+            return res.status(500).send(
+              "<h3>[500] An error occured</h3>"
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).send(
+          "<h3>[500] An error occured</h3>"
+        );
+      });
   });
+};
+
+// TODO: User login
+const login = (req, res) => {
+  res.send("User login endpoint");
 };
 
 // TODO: User logout
@@ -122,6 +165,7 @@ const register = async (req, res) => {
 // TODO: Change project task status
 
 module.exports = {
-  login,
   register,
+  verify,
+  login,
 };
