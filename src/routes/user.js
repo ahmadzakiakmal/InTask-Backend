@@ -9,5 +9,7 @@ userRouter.patch("/reset-password", resetPassword);
 userRouter.post("/addProjectTask/:projectId", addProjectTask);
 userRouter.delete("/deleteProjectTask/:projectId/:taskId", deleteProjectTask);
 userRouter.delete("/deleteProfile/:userId", deleteProfile);
+userRouter.post("/createProject", createProject);
+userRouter.put("/editProject/:projectId", editProject);
 
 module.exports = userRouter;
