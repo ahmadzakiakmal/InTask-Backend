@@ -343,15 +343,15 @@ const deleteProfile = async (req, res) => {
 // TODO: Create project
 // TODO: Create project
 const createProject = async (req, res) => {
-    const infoProject = req.body;
+  const infoProject = req.body;
 
-    try {
-        const project = await Project.create(infoProject);
-        res.status(201).json({ message: 'project created!', project });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-}
+  try {
+    const project = await Project.create(infoProject);
+    res.status(201).json({ message: "project created!", project });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 
 // TODO: Add project task
@@ -374,25 +374,25 @@ const addProjectTask = async (req, res) => {
 };
 // TODO: Edit project task
 const editProject = async (req, res) => {
-    const projectId = req.params.projectId;
-    const updatedData = req.body;
+  const projectId = req.params.projectId;
+  const updatedData = req.body;
 
-    try {
-        const project = await Project.findByIdAndUpdate(
-            projectId,
-            updatedData,
-            { new: true }
-        );
+  try {
+    const project = await Project.findByIdAndUpdate(
+      projectId,
+      updatedData,
+      { new: true }
+    );
 
-        if (!project) {
-            return res.status(404).json({ message: 'Project Not Found!' });
-        }
-
-        res.status(200).json({ message: 'Project Updated Successfully', project });
-    } catch (err) {
-        res.status(500).json(err);
+    if (!project) {
+      return res.status(404).json({ message: "Project Not Found!" });
     }
-}
+
+    res.status(200).json({ message: "Project Updated Successfully", project });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 // TODO: Delete project task
 const deleteProjectTask = async (req, res) => {
@@ -431,7 +431,7 @@ module.exports = {
   resetPassword,
   addProjectTask,
   deleteProjectTask,
-    deleteProfile,
-    createProject,
-    editProject
+  deleteProfile,
+  createProject,
+  editProject
 };

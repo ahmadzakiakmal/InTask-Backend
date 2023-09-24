@@ -7,6 +7,7 @@ const getAllUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
+    // eslint-disable-next-line no-console
     console.log(err);
   }
 };

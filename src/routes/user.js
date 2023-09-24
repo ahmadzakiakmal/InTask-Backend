@@ -1,5 +1,5 @@
 const userRouter = require("express").Router();
-const { login, register, verify, forgotPassword, resetPassword, addProjectTask, deleteProjectTask, deleteProfile } = require("../controllers/users");
+const { login, register, verify, forgotPassword, resetPassword, addProjectTask, deleteProjectTask, deleteProfile, createProject, editProject } = require("../controllers/users");
 
 userRouter.post("/register", register);
 userRouter.patch("/verify", verify);
