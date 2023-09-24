@@ -69,18 +69,16 @@ const register = async (req, res) => {
   const mailOptions = {
     from: process.env.NODEMAILER_EMAIL,
     to: email,
-    subject: "Verify your account",
+    subject: "InTask Account Verification",
     html: `<h1>Verify your account</h1>
-  <p>Click <a href="${process.env.API_URL}/user/verify/?token=${token}">here</a> to verify your account</p>`,
+  <p>Click <a href="${process.env.CLIENT_URL}/auth/verify/?token=${token}">here</a> to verify your account</p>`,
   };
-  transporter
-    .sendMail(mailOptions)
-    .catch((err) => {
-      return res.status(500).send({
-        message: "Error occured while sending email",
-        code: err.code,
-      });
+  transporter.sendMail(mailOptions).catch((err) => {
+    return res.status(500).send({
+      message: "Error occured while sending email",
+      code: err.code,
     });
+  });
 
   newUser
     .save(newUser)
@@ -104,7 +102,10 @@ const verify = (req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(500).send("<h3>[400] Invalid token</h3>");
+      return res.status(500).send({
+        message: "Invalid token",
+        code: err.code,
+      });
     }
 
     const email = decoded.email;
@@ -115,16 +116,23 @@ const verify = (req, res) => {
         user
           .save()
           .then(() => {
-            return res.status(200).send(`
-              <h3>Account verified successfully</h3>
-              <p>You can now login <a href="${process.env.CLIENT_URL}/login">here</a></p>`);
+            return res.status(200).send({
+              message: "User verified successfully",
+              code: 200,
+            });
           })
           .catch(() => {
-            return res.status(500).send("<h3>[500] An error occured</h3>");
+            return res.status(500).send({
+              message: "Error occured while saving user to DB",
+              code: err.code,
+            });
           });
       })
       .catch(() => {
-        return res.status(500).send("<h3>[500] An error occured</h3>");
+        return res.status(500).send({
+          message: "Error occured while finding user in DB",
+          code: err.code,
+        });
       });
   });
 };
@@ -319,19 +327,18 @@ const resetPassword = async (req, res) => {
 const deleteProfile = async (req, res) => {
   const userId = req.params.userId;
 
-  try{
+  try {
     const user = await User.findById(userId);
-      if(!user) {
-        return res.status(404).json({message : "User Not Found!"})
-      }
-      await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User Not Found!" });
+    }
+    await User.findByIdAndDelete(userId);
 
-      res.status(200).json({ message: "Profile Successfully Deleted" });
+    res.status(200).json({ message: "Profile Successfully Deleted" });
+  } catch (err) {
+    res.status(500).json(err);
   }
-  catch(err) {
-    res.status(500).json(err)
-  }
-}
+};
 
 // TODO: Create project
 
@@ -343,17 +350,16 @@ const addProjectTask = async (req, res) => {
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ message: 'Project Not Found!' });
+      return res.status(404).json({ message: "Project Not Found!" });
     }
     project.tasks.push(tasks);
     await project.save();
 
     res.status(200).json({ message: "Task Successfully Added to Project" });
-}
-  catch(err){
+  } catch (err) {
     res.status(500).json(err);
   }
-}
+};
 // TODO: Edit project task
 
 // TODO: Delete project task
@@ -365,13 +371,13 @@ const deleteProjectTask = async (req, res) => {
     const project = await Project.findById(projectId);
 
     if (!project) {
-      return res.status(404).json({ message: 'Project Not Found!' });
+      return res.status(404).json({ message: "Project Not Found!" });
     }
 
-    const taskIndex = project.tasks.findIndex(task => task.equals(taskId));
+    const taskIndex = project.tasks.findIndex((task) => task.equals(taskId));
 
     if (taskIndex === -1) {
-      return res.status(404).json({ message: 'Task Not Found In Project!' });
+      return res.status(404).json({ message: "Task Not Found In Project!" });
     }
 
     project.tasks.splice(taskIndex, 1);
@@ -381,7 +387,7 @@ const deleteProjectTask = async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-}
+};
 
 // TODO: Change project task status
 
