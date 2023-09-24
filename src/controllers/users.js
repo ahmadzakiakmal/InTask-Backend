@@ -316,6 +316,22 @@ const resetPassword = async (req, res) => {
 // TODO: User update profile
 
 // TODO: User delete profile
+const deleteProfile = async (req, res) => {
+  const userId = req.params.userId;
+
+  try{
+    const user = await User.findById(userId);
+      if(!user) {
+        return res.status(404).json({message : "User Not Found!"})
+      }
+      await User.findByIdAndDelete(userId);
+
+      res.status(200).json({ message: "Profile Successfully Deleted" });
+  }
+  catch(err) {
+    res.status(500).json(err)
+  }
+}
 
 // TODO: Create project
 
@@ -327,7 +343,7 @@ const addProjectTask = async (req, res) => {
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ error: 'Project Not Found!' });
+      return res.status(404).json({ message: 'Project Not Found!' });
     }
     project.tasks.push(tasks);
     await project.save();
@@ -349,17 +365,15 @@ const deleteProjectTask = async (req, res) => {
     const project = await Project.findById(projectId);
 
     if (!project) {
-      return res.status(404).json({ error: 'Project Not Found!' });
+      return res.status(404).json({ message: 'Project Not Found!' });
     }
 
-    // Temukan indeks tugas yang akan dihapus dalam array tasks proyek
     const taskIndex = project.tasks.findIndex(task => task.equals(taskId));
 
     if (taskIndex === -1) {
-      return res.status(404).json({ error: 'Task Not Found In Project!' });
+      return res.status(404).json({ message: 'Task Not Found In Project!' });
     }
 
-    // Hapus tugas dari array tasks proyek
     project.tasks.splice(taskIndex, 1);
     await project.save();
 
@@ -378,5 +392,6 @@ module.exports = {
   forgotPassword,
   resetPassword,
   addProjectTask,
-  deleteProjectTask
+  deleteProjectTask,
+  deleteProfile,
 };
