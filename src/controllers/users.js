@@ -74,11 +74,7 @@ const register = async (req, res) => {
   };
   transporter
     .sendMail(mailOptions)
-    .then(() => {
-      console.log(`Email sent to ${email}`);
-    })
     .catch((err) => {
-      console.log(err);
       return res.status(500).send({
         message: "Error occured while sending email",
         code: err.code,
@@ -94,7 +90,6 @@ const register = async (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       return res.status(500).send({
         message: "Error occured while saving user to DB",
         code: err.code,
@@ -105,50 +100,217 @@ const register = async (req, res) => {
 // *  User verify email
 const verify = (req, res) => {
   const token = req.query.token;
-  console.log(token);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      console.log(err);
-      return res.status(500).send(
-        "<h3>[400] Invalid token</h3>"
-      );
+      return res.status(500).send("<h3>[400] Invalid token</h3>");
     }
 
     const email = decoded.email;
-    console.log(email);
 
-    User.findOne({email: email})
+    User.findOne({ email: email })
       .then((user) => {
         user.verified = true;
-        user.save()
+        user
+          .save()
           .then(() => {
             return res.status(200).send(`
               <h3>Account verified successfully</h3>
               <p>You can now login <a href="${process.env.CLIENT_URL}/login">here</a></p>`);
           })
-          .catch((err) => {
-            console.log(err);
-            return res.status(500).send(
-              "<h3>[500] An error occured</h3>"
-            );
+          .catch(() => {
+            return res.status(500).send("<h3>[500] An error occured</h3>");
           });
       })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).send(
-          "<h3>[500] An error occured</h3>"
-        );
+      .catch(() => {
+        return res.status(500).send("<h3>[500] An error occured</h3>");
       });
   });
 };
 
-// TODO: User login
-const login = (req, res) => {
-  res.send("User login endpoint");
+// * User login
+const login = async (req, res) => {
+  const { identifier, password } = req.body;
+
+  // Check if all fields are provided
+  if (!identifier || !password) {
+    return res.status(400).send({
+      message: "Please provide all fields",
+      code: 400,
+    });
+  }
+
+  // Check if user exists
+  const user = await User.findOne({
+    $or: [{ email: identifier }, { username: identifier }],
+  });
+  if (!user) {
+    return res.status(404).send({
+      message: "User does not exist",
+      code: 404,
+    });
+  }
+
+  // Check if user is verified
+  if (!user.verified) {
+    return res.status(403).send({
+      message: "User is not verified",
+      code: 403,
+    });
+  }
+
+  // Check if password is correct
+  const hashedPassword = bcrypt.hashSync(password, user.salt);
+  if (hashedPassword !== user.password) {
+    return res.status(401).send({
+      message: "Incorrect password",
+      code: 401,
+    });
+  }
+
+  // Sign JWT
+  const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: "8h",
+  });
+
+  return res.status(200).send({
+    message: "User logged in successfully",
+    code: 200,
+    token: token,
+    data: {
+      username: user.username,
+      realName: user.realName,
+      email: user.email,
+      role: user.role,
+    },
+  });
 };
 
-// TODO: User logout
+// * User forgot password
+const forgotPassword = async (req, res) => {
+  const { identifier } = req.body;
+
+  // Check if all fields are provided
+  if (!identifier) {
+    return res.status(400).send({
+      message: "Please provide all fields",
+      code: 400,
+    });
+  }
+
+  // Check if user exists
+  const user = await User.findOne({
+    $or: [{ email: identifier }, { username: identifier }],
+  });
+  if (!user) {
+    return res.status(404).send({
+      message: "User does not exist",
+      code: 404,
+    });
+  }
+
+  // Sign JWT
+  const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  // Send email
+  const mailOptions = {
+    from: process.env.NODEMAILER_EMAIL,
+    to: user.email,
+    subject: "Reset your password",
+    html: `<h1>Reset your password</h1>
+  <p>Click <a href="${process.env.API_URL}/user/reset-password/?token=${token}">here</a> to reset your password</p>`,
+  };
+  transporter
+    .sendMail(mailOptions)
+    .then(() => {
+      return res.status(200).send({
+        message: "Email sent successfully",
+        code: 200,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        message: "Error occured while sending email",
+        code: err.code,
+      });
+    });
+};
+
+// * User reset password
+const resetPassword = async (req, res) => {
+  const token = req.query.token;
+  const { password } = req.body;
+
+  // Check if token is provided
+  if (!token) {
+    return res.status(400).send({
+      message: "Please provide token",
+      code: 400,
+    });
+  }
+
+  // Verify token
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(500).send({
+        message: "Invalid token",
+        code: err.code,
+      });
+    }
+
+    const email = decoded.email;
+
+    // Check if user exists
+    User.findOne({ email: email })
+      .then((user) => {
+        // Check if user is verified
+        if (!user.verified) {
+          return res.status(403).send({
+            message: "User is not verified",
+            code: 403,
+          });
+        }
+
+        // Check if password is provided
+        if (!password) {
+          return res.status(400).send({
+            message: "Please provide password",
+            code: 400,
+          });
+        }
+
+        // Hash password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
+        // Update password
+        user.password = hashedPassword;
+        user.salt = salt;
+        user
+          .save()
+          .then(() => {
+            return res.status(200).send({
+              message: "Password updated successfully",
+              code: 200,
+            });
+          })
+          .catch((err) => {
+            return res.status(500).send({
+              message: "Error occured while saving user to DB",
+              code: err.code,
+            });
+          });
+      })
+      .catch((err) => {
+        return res.status(500).send({
+          message: "Error occured while finding user in DB",
+          code: err.code,
+        });
+      });
+  });
+};
 
 // TODO: User update profile
 
@@ -168,4 +330,6 @@ module.exports = {
   register,
   verify,
   login,
+  forgotPassword,
+  resetPassword,
 };
