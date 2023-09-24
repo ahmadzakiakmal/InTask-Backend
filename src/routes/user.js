@@ -6,6 +6,7 @@ userRouter.get("/verify", verify);
 userRouter.post("/login", login);
 userRouter.post("/forgot-password", forgotPassword);
 userRouter.patch("/reset-password", resetPassword);
-
+userRouter.post("/addProjectTask/:projectId", addProjectTask);
+userRouter.delete("/deleteProjectTask/:projectId/:taskId", deleteProjectTask);
 
 module.exports = userRouter;

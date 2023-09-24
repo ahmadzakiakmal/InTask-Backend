@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Project = require("../models/project");
 
 // ? Required packages
 const bcrypt = require("bcrypt");
@@ -319,10 +320,54 @@ const resetPassword = async (req, res) => {
 // TODO: Create project
 
 // TODO: Add project task
+const addProjectTask = async (req, res) => {
+  const projectId = req.params.projectId;
+  const tasks = req.body;
 
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ error: 'Project Not Found!' });
+    }
+    project.tasks.push(tasks);
+    await project.save();
+
+    res.status(200).json({ message: "Task Successfully Added to Project" });
+}
+  catch(err){
+    res.status(500).json(err);
+  }
+}
 // TODO: Edit project task
 
 // TODO: Delete project task
+const deleteProjectTask = async (req, res) => {
+  const projectId = req.params.projectId;
+  const taskId = req.params.taskId;
+
+  try {
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project Not Found!' });
+    }
+
+    // Temukan indeks tugas yang akan dihapus dalam array tasks proyek
+    const taskIndex = project.tasks.findIndex(task => task.equals(taskId));
+
+    if (taskIndex === -1) {
+      return res.status(404).json({ error: 'Task Not Found In Project!' });
+    }
+
+    // Hapus tugas dari array tasks proyek
+    project.tasks.splice(taskIndex, 1);
+    await project.save();
+
+    res.status(200).json({ message: "Task Successfully Deleted from Project" });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 // TODO: Change project task status
 
@@ -332,4 +377,6 @@ module.exports = {
   login,
   forgotPassword,
   resetPassword,
+  addProjectTask,
+  deleteProjectTask
 };
