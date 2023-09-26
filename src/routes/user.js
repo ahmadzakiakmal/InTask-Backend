@@ -13,6 +13,6 @@ userRouter.delete("/delete-profile/:userId", deleteProfile);
 userRouter.post("/create-project", createProject);
 userRouter.put("/edit-project/:projectId", editProject);
 userRouter.put("/update-profile", requireJWTAuth, updateProfile);
-userRouter.put("/update-task-status/:taskId/:status", updateTaskStatus)
+userRouter.put("/update-task-status/:taskId/:status", updateTaskStatus);
 
 module.exports = userRouter;

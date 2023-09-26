@@ -20,8 +20,8 @@ const projectSchema = new mongoose.Schema({
     },
     status: {
       type: String,
-      enum: ['todo', 'inprogress', 'done'],
-      default: 'todo' 
+      enum: ["todo", "inprogress", "done"],
+      default: "todo" 
     }
   }],
   createdAt: {
