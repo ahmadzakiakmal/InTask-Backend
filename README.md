@@ -30,14 +30,16 @@ PAW Project - Backend for InTask web application
 
 #### 2. Login
 - ##### Description
-  lorem ipsum dolor sit amet.
+  Authenticates a user and grants access to the application.
 
 - ##### Route        
   ```/user/login```
 
 - ##### Parameters  
   ```
-  lorem ipsum dolor sit amet.
+  username: string,
+  email: string,
+  password: string,
   ```
 #### 3. etc
 
