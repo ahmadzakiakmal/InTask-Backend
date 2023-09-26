@@ -5,7 +5,7 @@ PAW Project - Backend for InTask web application
 - Ahmad Zaki Akmal - 21/480179/TK/52981
 - Diestra Pradana Duta Ramadhan - 21/478179/TK/52693
 - 
--
+- Salwa Maharani - 21/481194/TK/53113
 
 ## Documentation
   
