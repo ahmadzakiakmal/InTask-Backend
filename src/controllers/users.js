@@ -433,20 +433,20 @@ const deleteProjectTask = async (req, res) => {
 
 // * change project task status
 const updateTaskStatus = async (req, res) => {
-  const {taskId, status} = req.params
+  const {taskId, status} = req.params;
   try {
     const project = await Project.findOne(
-      { 'tasks._id': taskId},
-      { 'tasks.$': 1 }
-    )
-    project.tasks[0].status = status
-    await project.save()
-    res.status(201).json({message: 'project task status updated'})
+      { "tasks._id": taskId},
+      { "tasks.$": 1 }
+    );
+    project.tasks[0].status = status;
+    await project.save();
+    res.status(201).json({message: "project task status updated"});
   }
   catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
-}
+};
 
 module.exports = {
   register,
