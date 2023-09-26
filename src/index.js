@@ -36,8 +36,8 @@ app.get("/", (req, res) => {
 const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
-const ownerRouter = require("./routes/owner");
-app.use("/owner", ownerRouter);
+const projectRouter = require("./routes/project");
+app.use("/project", projectRouter);
 
 const adminRouter = require("./routes/admin");
 app.use("/admin", adminRouter);

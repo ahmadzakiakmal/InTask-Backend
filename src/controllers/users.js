@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const Project = require("../models/project");
 
 // ? Required packages
 const bcrypt = require("bcrypt");
@@ -321,7 +320,7 @@ const resetPassword = async (req, res) => {
   });
 };
 
-// * user update profile
+// * User update profile
 const updateProfile = async (req, res) => {
   try {
     const email = req.user.email;
@@ -334,7 +333,7 @@ const updateProfile = async (req, res) => {
   }
 };
 
-// * user delete profile
+// * User delete profile
 const deleteProfile = async (req, res) => {
   const userId = req.params.userId;
 
@@ -351,114 +350,12 @@ const deleteProfile = async (req, res) => {
   }
 };
 
-// * create project
-const createProject = async (req, res) => {
-  const infoProject = req.body;
-
-  try {
-    const project = await Project.create(infoProject);
-    res.status(201).json({ message: "project created!", project });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-
-// * add project task
-const addProjectTask = async (req, res) => {
-  const projectId = req.params.projectId;
-  const tasks = req.body;
-
-  try {
-    const project = await Project.findById(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project Not Found!" });
-    }
-    project.tasks.push(tasks);
-    await project.save();
-
-    res.status(200).json({ message: "Task Successfully Added to Project" });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-// * edit project task
-const editProject = async (req, res) => {
-  const projectId = req.params.projectId;
-  const updatedData = req.body;
-
-  try {
-    const project = await Project.findByIdAndUpdate(
-      projectId,
-      updatedData,
-      { new: true }
-    );
-
-    if (!project) {
-      return res.status(404).json({ message: "Project Not Found!" });
-    }
-
-    res.status(200).json({ message: "Project Updated Successfully", project });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-// * delete project task
-const deleteProjectTask = async (req, res) => {
-  const projectId = req.params.projectId;
-  const taskId = req.params.taskId;
-
-  try {
-    const project = await Project.findById(projectId);
-
-    if (!project) {
-      return res.status(404).json({ message: "Project Not Found!" });
-    }
-
-    const taskIndex = project.tasks.findIndex((task) => task.equals(taskId));
-
-    if (taskIndex === -1) {
-      return res.status(404).json({ message: "Task Not Found In Project!" });
-    }
-
-    project.tasks.splice(taskIndex, 1);
-    await project.save();
-
-    res.status(200).json({ message: "Task Successfully Deleted from Project" });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-// * change project task status
-const updateTaskStatus = async (req, res) => {
-  const {taskId, status} = req.params;
-  try {
-    const project = await Project.findOne(
-      { "tasks._id": taskId},
-      { "tasks.$": 1 }
-    );
-    project.tasks[0].status = status;
-    await project.save();
-    res.status(201).json({message: "project task status updated"});
-  }
-  catch (err) {
-    res.status(500).json(err);
-  }
-};
-
 module.exports = {
   register,
   verify,
   login,
   forgotPassword,
   resetPassword,
-  addProjectTask,
-  deleteProjectTask,
   deleteProfile,
-  createProject,
-  editProject,
   updateProfile,
-  updateTaskStatus
 };
