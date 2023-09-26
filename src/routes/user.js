@@ -1,5 +1,5 @@
 const userRouter = require("express").Router();
-const { login, register, verify, forgotPassword, resetPassword, addProjectTask, deleteProjectTask, deleteProfile, createProject, editProject } = require("../controllers/users");
+const { login, register, verify, forgotPassword, resetPassword, addProjectTask, deleteProjectTask, deleteProfile, createProject, editProject, updateProfile } = require("../controllers/users");
 const { requireJWTAuth } = require("../middlewares/authentication");
 
 userRouter.post("/register", register);
@@ -12,5 +12,6 @@ userRouter.delete("/delete-project-task/:projectId/:taskId", deleteProjectTask);
 userRouter.delete("/delete-profile/:userId", deleteProfile);
 userRouter.post("/create-project", createProject);
 userRouter.put("/edit-project/:projectId", editProject);
+userRouter.put("/update-profile", requireJWTAuth, updateProfile);
 
 module.exports = userRouter;

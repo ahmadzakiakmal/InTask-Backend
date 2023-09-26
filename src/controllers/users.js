@@ -444,5 +444,6 @@ module.exports = {
   deleteProjectTask,
   deleteProfile,
   createProject,
-  editProject
+  editProject,
+  updateProfile
 };
