@@ -12,8 +12,16 @@ const projectSchema = new mongoose.Schema({
     ref: "User"
   }],
   tasks: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Task"
+    title: String,
+    assignees: {
+      type: String,
+      ref: "User"
+    },
+    status: {
+      type: String,
+      enum: ['todo', 'inprogress', 'done'],
+      default: 'todo' 
+    }
   }],
   createdAt: {
     type: Date,
