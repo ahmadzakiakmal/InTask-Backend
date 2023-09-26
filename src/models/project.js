@@ -12,6 +12,7 @@ const projectSchema = new mongoose.Schema({
     ref: "User"
   }],
   tasks: [{
+    _id: mongoose.Schema.Types.ObjectId,
     title: String,
     assignees: {
       type: String,
