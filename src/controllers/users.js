@@ -324,15 +324,15 @@ const resetPassword = async (req, res) => {
 // * user update profile
 const updateProfile = async (req, res) => {
   try {
-    const email = req.user.email
-    const {username, realName} = req.body
-    const user = await User.findOneAndUpdate({ email: email }, { username, realName })
-    res.status(201).json({ message: "User Profile updated", user })
-  } 
-  catch (err) {
-    res.status(500).json(err)
+    const email = req.user.email;
+    const { username, realName } = req.body;
+    const user = await User.findOneAndUpdate({ email: email }, { username, realName });
+    res.status(201).json({ message: "User Profile updated", user });
   }
-}
+  catch (err){
+    res.status(500).json(err);
+  }
+};
 
 // * user delete profile
 const deleteProfile = async (req, res) => {
