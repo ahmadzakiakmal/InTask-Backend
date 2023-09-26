@@ -321,7 +321,7 @@ const resetPassword = async (req, res) => {
   });
 };
 
-// * User update profile
+// * user update profile
 const updateProfile = async (req, res) => {
   try {
     const email = req.user.email
@@ -334,7 +334,7 @@ const updateProfile = async (req, res) => {
   }
 }
 
-// * User delete profile
+// * user delete profile
 const deleteProfile = async (req, res) => {
   const userId = req.params.userId;
 
@@ -351,7 +351,7 @@ const deleteProfile = async (req, res) => {
   }
 };
 
-// * Create project
+// * create project
 const createProject = async (req, res) => {
   const infoProject = req.body;
 
@@ -364,7 +364,7 @@ const createProject = async (req, res) => {
 };
 
 
-// TODO: Add project task
+// * add project task
 const addProjectTask = async (req, res) => {
   const projectId = req.params.projectId;
   const tasks = req.body;
@@ -382,7 +382,7 @@ const addProjectTask = async (req, res) => {
     res.status(500).json(err);
   }
 };
-// TODO: Edit project task
+// * edit project task
 const editProject = async (req, res) => {
   const projectId = req.params.projectId;
   const updatedData = req.body;
@@ -404,7 +404,7 @@ const editProject = async (req, res) => {
   }
 };
 
-// TODO: Delete project task
+// * delete project task
 const deleteProjectTask = async (req, res) => {
   const projectId = req.params.projectId;
   const taskId = req.params.taskId;
@@ -431,7 +431,7 @@ const deleteProjectTask = async (req, res) => {
   }
 };
 
-// TODO: Change project task status
+// * change project task status
 const updateTaskStatus = async (req, res) => {
   const {taskId, status} = req.params
   try {
