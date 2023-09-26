@@ -7,10 +7,10 @@ userRouter.patch("/verify", verify);
 userRouter.post("/login", login);
 userRouter.post("/forgot-password", requireJWTAuth, forgotPassword);
 userRouter.patch("/reset-password", resetPassword);
-userRouter.post("/addProjectTask/:projectId", addProjectTask);
-userRouter.delete("/deleteProjectTask/:projectId/:taskId", deleteProjectTask);
-userRouter.delete("/deleteProfile/:userId", deleteProfile);
-userRouter.post("/createProject", createProject);
-userRouter.put("/editProject/:projectId", editProject);
+userRouter.post("/add-project-task/:projectId", addProjectTask);
+userRouter.delete("/delete-project-task/:projectId/:taskId", deleteProjectTask);
+userRouter.delete("/delete-profile/:userId", deleteProfile);
+userRouter.post("/create-project", createProject);
+userRouter.put("/edit-project/:projectId", editProject);
 
 module.exports = userRouter;
