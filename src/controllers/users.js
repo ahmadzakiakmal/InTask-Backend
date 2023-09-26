@@ -182,7 +182,7 @@ const login = async (req, res) => {
     expiresIn: "8h",
   });
 
-  return res.status(200).send({
+  return res.cookie("Authorization", token).status(200).send({
     message: "User logged in successfully",
     code: 200,
     token: token,
