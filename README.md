@@ -4,7 +4,7 @@ PAW Project - Backend for InTask web application
 ## Members
 - Ahmad Zaki Akmal - 21/480179/TK/52981
 - Diestra Pradana Duta Ramadhan - 21/478179/TK/52693
-- 
+- Nikolas Galih Saputro - 21/482747/TK/53361
 - Salwa Maharani - 21/481194/TK/53113
 
 ## Documentation
