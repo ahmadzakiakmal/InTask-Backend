@@ -39,6 +39,9 @@ app.use("/user", userRouter);
 const ownerRouter = require("./routes/owner");
 app.use("/owner", ownerRouter);
 
+const adminRouter = require("./routes/admin");
+app.use("/admin", adminRouter);
+
 // * End of routes
 
 const port = process.env.API_PORT;

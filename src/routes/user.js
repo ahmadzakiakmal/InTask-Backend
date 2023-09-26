@@ -1,6 +1,6 @@
 const userRouter = require("express").Router();
 const { login, register, verify, forgotPassword, resetPassword, addProjectTask, deleteProjectTask, deleteProfile, createProject, editProject } = require("../controllers/users");
-const { requireJWTAuth } = require("../middlewares/auth");
+const { requireJWTAuth } = require("../middlewares/authentication");
 
 userRouter.post("/register", register);
 userRouter.patch("/verify", verify);
