@@ -5,6 +5,6 @@
     "\\src\\controllers",
     "\\src\\routes"
   ],
-  "SelectedNode": "\\src\\routes\\user.js",
+  "SelectedNode": "\\src\\controllers\\users.js",
   "PreviewInSolutionExplorer": false
 }

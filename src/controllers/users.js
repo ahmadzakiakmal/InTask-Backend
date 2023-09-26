@@ -321,7 +321,7 @@ const resetPassword = async (req, res) => {
   });
 };
 
-// TODO: User update profile
+// * User update profile
 const updateProfile = async (req, res) => {
   try {
     const email = req.user.email
@@ -334,7 +334,7 @@ const updateProfile = async (req, res) => {
   }
 }
 
-// TODO: User delete profile
+// * User delete profile
 const deleteProfile = async (req, res) => {
   const userId = req.params.userId;
 
@@ -351,8 +351,7 @@ const deleteProfile = async (req, res) => {
   }
 };
 
-// TODO: Create project
-// TODO: Create project
+// * Create project
 const createProject = async (req, res) => {
   const infoProject = req.body;
 
