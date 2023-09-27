@@ -15,14 +15,21 @@ const createProject = async (req, res) => {
 // * Add project task
 const addProjectTask = async (req, res) => {
   const projectId = req.params.projectId;
-  const tasks = req.body;
+  const {title, assignees} = req.body;
 
   try {
     const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project Not Found!" });
     }
-    project.tasks.push(tasks);
+
+    const task = {
+      title,
+      assignees,
+      status : "todo"
+    };
+
+    project.tasks.push(task);
     await project.save();
 
     res.status(200).json({ message: "Task Successfully Added to Project" });
