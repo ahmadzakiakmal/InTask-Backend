@@ -1,32 +1,27 @@
 const mongoose = require("mongoose");
+
 const projectSchema = new mongoose.Schema({
-  // TODO: Add project properties
   title: String,
   description: String,
   owner: {
-    type: String,  //owner's username
-    ref: "User"
+    type: String, //owner's username
+    ref: "User",
   },
-  contributors: [{
-    type: String,  //contributor's username
-    ref: "User"
-  }],
-  tasks: [{
-    _id: mongoose.Schema.Types.ObjectId,
-    title: String,
-    assignees: {
-      type: String,
-      ref: "User"
+  contributors: [
+    {
+      type: String, 
+      ref: "User",
     },
-    status: {
-      type: String,
-      enum: ["todo", "inprogress", "done"],
-      default: "todo" 
-    }
-  }],
+  ],
+  tasks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 
