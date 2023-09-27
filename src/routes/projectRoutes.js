@@ -5,7 +5,7 @@ const {
   removeContributor,
   deleteProject,
   addContributor,
-} = require("../controllers/projects");
+} = require("../controllers/projectsControllers");
 
 projectRouter.post("/", createProject);
 projectRouter.delete("/:projectId", deleteProject);
