@@ -33,14 +33,14 @@ app.get("/", (req, res) => {
   res.send("<h1>InTask Backend</h1>");
 });
 
-const userRouter = require("./routes/user");
-app.use("/user", userRouter);
+const userRouter = require("./routes/userRoutes");
+app.use("/userRoutes", userRouter);
 
-const projectRouter = require("./routes/project");
-app.use("/project", projectRouter);
+const projectRouter = require("./routes/projectRoutes");
+app.use("/projectRoutes", projectRouter);
 
-const adminRouter = require("./routes/admin");
-app.use("/admin", adminRouter);
+const adminRouter = require("./routes/adminRoutes");
+app.use("/adminRoutes", adminRouter);
 
 // * End of routes
 
