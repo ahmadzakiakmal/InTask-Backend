@@ -3,8 +3,9 @@ const app = express();
 const dotenv = require("dotenv");
 
 // ? Dotenv config
-dotenv.config({ path: "../config.env"});
+dotenv.config({ path: "./src/config/config.env"});
 const process = require("process");
+console.log(process.env.MONGO_URI);
 
 // ? Morgan logger config
 const morgan = require("morgan");
