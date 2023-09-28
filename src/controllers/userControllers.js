@@ -84,6 +84,9 @@ const register = async (req, res) => {
       img {
         width: 200px;
       }
+      p, h2 {
+        text-align: center;
+      }
     </style>
     <div id="logo-bg">
       <img src="https://in-task.vertech.id/InTaskLogoDark.png" alt="InTask Logo">
