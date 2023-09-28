@@ -49,7 +49,7 @@ PAW Project - Backend for InTask web application
   
 #### 3. Update Profile
 - ##### Description
-  Update the user profile information
+  Update the user profile information.
 
 - ##### Route
   ````````````
@@ -65,7 +65,7 @@ PAW Project - Backend for InTask web application
 
 #### 4. Delete Profile
 - ##### Description
-  Delete their user profile
+  Delete their user profile.
 
 - ##### Route
   ````````````
@@ -79,7 +79,7 @@ PAW Project - Backend for InTask web application
 
 #### 5. Forgot Password
 - ##### Description
-  Request password reset link for forgotten password
+  Request password reset link for forgotten password.
   
 - ##### Route
   ````````````
@@ -94,7 +94,7 @@ PAW Project - Backend for InTask web application
 
 #### 6. Reset Password
 - ##### Description
-  Reset password after receiving link
+  Reset password after receiving link.
   
 - ##### Route
   ````````````
@@ -105,6 +105,19 @@ PAW Project - Backend for InTask web application
   ```
   password: string
   ```
+
+#### 6. Verify
+- ##### Description
+  Verify user email.
+  
+- ##### Route
+  ````````````
+  PATCH /user/verify
+  ````````````
+
+- ##### Parameters
+
+
 <br />
 
 ### Projects
