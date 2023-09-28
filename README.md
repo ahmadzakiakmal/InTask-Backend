@@ -40,8 +40,7 @@ PAW Project - Backend for InTask web application
 
 - ##### Parameters  
   ```
-  username: string,
-  email: string,
+  identifier: string,
   password: string,
   ```
  
