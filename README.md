@@ -199,6 +199,100 @@ PAW Project - Backend for InTask web application
 
 ### Tasks
 
+#### 1. Get Project Task
+- ##### Description
+  Get all project tasks.
+  
+- ##### Route
+  ````````````
+  GET /project/:projectId/tasks
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  ```
+
+#### 2. Add Task
+- ##### Description
+  Add new task to project.
+  
+- ##### Route
+  ````````````
+  POST /project/:projectId/tasks
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  name: string,
+  description: string,
+  ```
+
+#### 3. Delete Task
+- ##### Description
+  Delete project task by id.
+  
+- ##### Route
+  ````````````
+  DELETE /project/:projectId/tasks/:taskId
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  taskId: ObjectId,
+  ```
+
+#### 4. Add Assignee
+- ##### Description
+  Add user as assignee.
+  
+- ##### Route
+  ````````````
+  POST /project/:projectId/tasks/:taskId/assignees
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  taskId: ObjectId,
+  username: string,
+  email: string,
+  ```
+
+#### 5. Remove Assignee
+- ##### Description
+  Remove user from assignee.
+  
+- ##### Route
+  ````````````
+  DELETE /project/:projectId/tasks/:taskId/assignees
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  taskId: ObjectId,
+  username: string,
+  email: string,
+  ```
+
+#### 6. Update Task Status
+- ##### Description
+  Update status in task(todo, in progress, done, etc).
+  
+- ##### Route
+  ````````````
+  PATCH /project/:projectId/tasks/:taskId
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  taskId: ObjectId,
+  status: string,
+  ```
 <br />
 
 ### Admin
