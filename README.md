@@ -41,8 +41,19 @@ PAW Project - Backend for InTask web application
   email: string,
   password: string,
   ```
-#### 3. etc
+#### 3. Update Profile
+- ##### Description
+  Update the user profile information
 
+- ##### Route
+  ```/user/update-profile```
+
+- ##### Parameters
+  ```
+  username: string,
+  email: string,
+  realName: string,
+  ```
 <br />
 
 ### Projects
