@@ -66,11 +66,33 @@ const register = async (req, res) => {
   });
 
   const mailOptions = {
-    from: `InTask <${process.env.NODEMAILER_EMAIL}>`,
+    from: `InTask <${process.env.NODEMAILER_EMAIL}`,
     to: email,
     subject: "InTask Account Verification",
-    html: `<h1>Verify your account</h1>
-  <p>Click <a href="${process.env.CLIENT_URL}/auth/verify/?token=${token}">here</a> to verify your account</p>`,
+    html: `<main>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+      main{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        color: #1B2430;
+      }
+      img {
+        width: 200px;
+      }
+    </style>
+    <div id="logo-bg">
+      <img src="https://in-task.vertech.id/InTaskLogoDark.png" alt="InTask Logo">
+    </div>
+    <div>
+      <h2>Verify Your Account</h2>
+      <div>Click <a href="${process.env.CLIENT_URL}/auth/verify/?token=${token}">here</a> to verify your account</div>
+    </div>
+  </main>`,
   };
   transporter.sendMail(mailOptions).catch((err) => {
     return res.status(500).send({
@@ -181,17 +203,20 @@ const login = async (req, res) => {
     expiresIn: "8h",
   });
 
-  return res.cookie("Authorization", token).status(200).send({
-    message: "User logged in successfully",
-    code: 200,
-    token: token,
-    data: {
-      username: user.username,
-      realName: user.realName,
-      email: user.email,
-      role: user.role,
-    },
-  });
+  return res
+    .cookie("Authorization", token)
+    .status(200)
+    .send({
+      message: "User logged in successfully",
+      code: 200,
+      token: token,
+      data: {
+        username: user.username,
+        realName: user.realName,
+        email: user.email,
+        role: user.role,
+      },
+    });
 };
 
 // * User forgot password
@@ -325,10 +350,12 @@ const updateProfile = async (req, res) => {
   try {
     const email = req.user.email;
     const { username, realName } = req.body;
-    const user = await User.findOneAndUpdate({ email: email }, { username, realName });
+    const user = await User.findOneAndUpdate(
+      { email: email },
+      { username, realName }
+    );
     res.status(201).json({ message: "User Profile updated", user });
-  }
-  catch (err){
+  } catch (err) {
     res.status(500).json(err);
   }
 };

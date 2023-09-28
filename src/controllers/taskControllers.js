@@ -96,7 +96,6 @@ const deleteTask = async (req, res) => {
         throw new Error("Project not found");
       }
       project.tasks = project.tasks.filter((task) => task._id != taskId);
-      project.tasks.filter((task) => task._id != taskId);
       project
         .save()
         .catch((err) => {
