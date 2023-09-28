@@ -69,12 +69,27 @@ PAW Project - Backend for InTask web application
 
 - ##### Route
   ````````````
-  PUT /user/delete-profile/:userId
+  DELETE /user/delete-profile/:userId
   ````````````
 
 - ##### Parameters
   ```
-  userId: ObjectId
+  userId: ObjectId,
+  ```
+
+#### 5. Forgot Password
+- ##### Description
+  request password reset link for forgotten password
+  
+- ##### Route
+  ````````````
+  POST /user/forgot-password
+  ````````````
+
+- ##### Parameters
+  ```
+  email: string,
+  username: string
   ```
 <br />
 
