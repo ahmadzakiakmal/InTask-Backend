@@ -63,7 +63,7 @@ PAW Project - Backend for InTask web application
   realName: string,
   ```
 
-  #### 4. Delete Profile
+#### 4. Delete Profile
 - ##### Description
   Delete their user profile
 
