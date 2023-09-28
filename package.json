@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "lint": "eslint .",
-    "start": "cd src && node index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",
