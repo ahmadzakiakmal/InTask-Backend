@@ -25,8 +25,8 @@ PAW Project - Backend for InTask web application
   ```
   username: string,
   realName: string,
-  email: string
-  password: string
+  email: string,
+  password: string,
   ```
 
 
@@ -89,7 +89,7 @@ PAW Project - Backend for InTask web application
 - ##### Parameters
   ```
   email: string,
-  username: string
+  username: string,
   ```
 
 #### 6. Reset Password
@@ -103,10 +103,10 @@ PAW Project - Backend for InTask web application
 
 - ##### Parameters
   ```
-  password: string
+  password: string,
   ```
 
-#### 6. Verify
+#### 7. Verify
 - ##### Description
   Verify user email.
   
@@ -117,11 +117,84 @@ PAW Project - Backend for InTask web application
 
 - ##### Parameters
 
-
 <br />
 
 ### Projects
 
+#### 1. Get Project
+- ##### Description
+  Get all user’s projects.
+  
+- ##### Route
+  ````````````
+  GET /project/:username
+  ````````````
+
+- ##### Parameters
+  ```
+  username: string,
+  ```
+
+#### 2. Create Project
+- ##### Description
+  Create new project.
+  
+- ##### Route
+  ````````````
+  POST /project/
+  ````````````
+
+- ##### Parameters
+  ```
+  title: string,
+  description: string,
+  ```
+
+#### 3. Delete Project
+- ##### Description
+  Delete project by ID.
+  
+- ##### Route
+  ````````````
+  DELETE /project/:projectId
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  ```
+
+#### 4. Add Contributor
+- ##### Description
+  Add user to project contributors.
+  
+- ##### Route
+  ````````````
+  POST /project/:projectId/contributors
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  username: string,
+  email: string,
+  ```
+
+#### 5. Remove Contributor
+- ##### Description
+  Remove user from project contributors.
+  
+- ##### Route
+  ````````````
+  DELETE /project/:projectId/contributors/:contributorUsername
+  ````````````
+
+- ##### Parameters
+  ```
+  projectId: ObjectId,
+  contributorUsername: string,
+  ```
+  
 <br />
 
 ### Tasks
