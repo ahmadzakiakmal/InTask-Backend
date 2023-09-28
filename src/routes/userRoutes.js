@@ -7,15 +7,15 @@ const {
   resetPassword,
   deleteProfile,
   updateProfile,
-} = require("../controllers/users");
-const { requireJWTAuth } = require("../middlewares/authentication");
+} = require("../controllers/userControllers");
+const { JWTAuthentication } = require("../middlewares/authentication");
 
 userRouter.post("/register", register);
 userRouter.patch("/verify", verify);
 userRouter.post("/login", login);
-userRouter.post("/forgot-password", requireJWTAuth, forgotPassword);
-userRouter.patch("/reset-password", resetPassword);
-userRouter.delete("/delete-profile/:userId", deleteProfile);
-userRouter.put("/update-profile", requireJWTAuth, updateProfile);
+userRouter.post("/forgot-password", JWTAuthentication, forgotPassword);
+userRouter.patch("/reset-password", JWTAuthentication, resetPassword);
+userRouter.delete("/delete-profile/:userId", JWTAuthentication, deleteProfile);
+userRouter.put("/update-profile", JWTAuthentication, updateProfile);
 
 module.exports = userRouter;

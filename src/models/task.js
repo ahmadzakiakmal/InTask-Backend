@@ -5,13 +5,17 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    default: "No description provided",
+  },
   status: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: "TO DO",
   },
   assignees: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String, // assignee's username
       ref: "User",
     },
   ],

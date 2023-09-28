@@ -34,13 +34,13 @@ app.get("/", (req, res) => {
 });
 
 const userRouter = require("./routes/userRoutes");
-app.use("/userRoutes", userRouter);
+app.use("/user", userRouter);
 
 const projectRouter = require("./routes/projectRoutes");
-app.use("/projectRoutes", projectRouter);
+app.use("/project", projectRouter);
 
 const adminRouter = require("./routes/adminRoutes");
-app.use("/adminRoutes", adminRouter);
+app.use("/admin", adminRouter);
 
 // * End of routes
 

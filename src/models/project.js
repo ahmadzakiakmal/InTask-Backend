@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  title: { type: String, required: true },
+  description: {
+    type: String,
+    default: "No description provided",
+  },
   owner: {
     type: String, //owner's username
     ref: "User",
   },
   contributors: [
     {
-      type: String, 
+      type: String, // contributor's username
       ref: "User",
     },
   ],

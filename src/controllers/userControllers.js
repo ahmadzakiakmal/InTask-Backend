@@ -33,7 +33,7 @@ const register = async (req, res) => {
   });
   if (check) {
     return res.status(400).send({
-      message: "User already exists",
+      message: "Email or username is already taken",
       code: 400,
     });
   }
@@ -66,7 +66,7 @@ const register = async (req, res) => {
   });
 
   const mailOptions = {
-    from: process.env.NODEMAILER_EMAIL,
+    from: `InTask <${process.env.NODEMAILER_EMAIL}>`,
     to: email,
     subject: "InTask Account Verification",
     html: `<h1>Verify your account</h1>
