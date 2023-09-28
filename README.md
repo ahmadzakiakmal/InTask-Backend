@@ -29,7 +29,6 @@ PAW Project - Backend for InTask web application
   password: string,
   ```
 
-
 #### 2. Login
 - ##### Description
   Authenticates a user and grants access to the application.
@@ -45,8 +44,7 @@ PAW Project - Backend for InTask web application
   email: string,
   password: string,
   ```
-
-  
+ 
 #### 3. Update Profile
 - ##### Description
   Update the user profile information.
@@ -296,6 +294,17 @@ PAW Project - Backend for InTask web application
 <br />
 
 ### Admin
+
+#### 1. Get All User
+- ##### Description
+  Get all user data/information from those who have already signed in to the app.
+  
+- ##### Route
+  ````````````
+  GET /admin/
+  ````````````
+
+- ##### Parameters
 
 <br />
 
