@@ -43,11 +43,6 @@ PAW Project - Backend for InTask web application
   ```
 #### 3. etc
 
-### Project
-
-### Task
-
-### Admin
 <br />
 
 ### Projects
