@@ -17,7 +17,7 @@ PAW Project - Backend for InTask web application
   Registers a new, unverified user to the database.
 
 - ##### Route        
-  ```/user/register```
+  ```POST /user/register```
 
 - ##### Parameters  
   ```
@@ -33,7 +33,7 @@ PAW Project - Backend for InTask web application
   Authenticates a user and grants access to the application.
 
 - ##### Route        
-  ```/user/login```
+  ```POST /user/login```
 
 - ##### Parameters  
   ```
@@ -46,7 +46,7 @@ PAW Project - Backend for InTask web application
   Update the user profile information
 
 - ##### Route
-  ```/user/update-profile```
+  ```PUT /user/update-profile```
 
 - ##### Parameters
   ```
