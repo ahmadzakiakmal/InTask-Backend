@@ -47,5 +47,15 @@ PAW Project - Backend for InTask web application
 
 ### Projects
 
+<br />
+
+### Tasks
+
+<br />
+
+### Admin
+
+<br />
+
 ## Related Repositories
 - [Frontend Repository](https://github.com/ahmadzaki2975/InTask-Frontend)
