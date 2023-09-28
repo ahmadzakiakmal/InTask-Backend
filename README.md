@@ -45,6 +45,8 @@ PAW Project - Backend for InTask web application
   email: string,
   password: string,
   ```
+
+  
 #### 3. Update Profile
 - ##### Description
   Update the user profile information
@@ -59,6 +61,20 @@ PAW Project - Backend for InTask web application
   username: string,
   email: string,
   realName: string,
+  ```
+
+  #### 4. Delete Profile
+- ##### Description
+  Delete their user profile
+
+- ##### Route
+  ````````````
+  PUT /user/delete-profile/:userId
+  ````````````
+
+- ##### Parameters
+  ```
+  userId: ObjectId
   ```
 <br />
 
