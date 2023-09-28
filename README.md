@@ -79,7 +79,7 @@ PAW Project - Backend for InTask web application
 
 #### 5. Forgot Password
 - ##### Description
-  request password reset link for forgotten password
+  Request password reset link for forgotten password
   
 - ##### Route
   ````````````
@@ -90,6 +90,20 @@ PAW Project - Backend for InTask web application
   ```
   email: string,
   username: string
+  ```
+
+#### 6. Reset Password
+- ##### Description
+  Reset password after receiving link
+  
+- ##### Route
+  ````````````
+  PATCH /user/reset-password
+  ````````````
+
+- ##### Parameters
+  ```
+  password: string
   ```
 <br />
 
