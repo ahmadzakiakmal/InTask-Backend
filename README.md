@@ -113,6 +113,9 @@ PAW Project - Backend for InTask web application
   ````````````
 
 - ##### Parameters
+  ```
+  token
+  ```
 
 <br />
 
