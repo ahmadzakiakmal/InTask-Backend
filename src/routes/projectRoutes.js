@@ -33,7 +33,7 @@ projectRouter.post("/:projectId/contributors", authorizeProjectOwner, addContrib
 projectRouter.delete("/:projectId/contributors/:contributorUsername", authorizeProjectOwner, removeContributor);
 
 // Tasks
-projectRouter.get("/:projectId/tasks", authorizeContributor, getProjectTasks);
+projectRouter.get("/:projectId/tasks", /*authorizeContributor,*/ getProjectTasks);
 projectRouter.post("/:projectId/tasks", addTask);
 projectRouter.delete("/:projectId/tasks/:taskId", authorizeProjectOwner, deleteTask);
 projectRouter.post("/:projectId/tasks/:taskId/assignees", authorizeContributor, addAssignee);
