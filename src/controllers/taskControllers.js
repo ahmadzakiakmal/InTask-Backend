@@ -30,7 +30,7 @@ const getProjectTasks = async (req, res) => {
 // * Add task
 const addTask = async (req, res) => {
   const { projectId } = req.params;
-  const { name, description } = req.body;
+  const { name, description, status, assignees } = req.body;
 
   if (!projectId) {
     return res.status(400).json({
@@ -48,7 +48,8 @@ const addTask = async (req, res) => {
   const task = new Task({
     name,
     description: description || "No description provided",
-    status: "TO DO",
+    status: status ?? "todo",
+    assignees: assignees == "" ? [] : [assignees]
   });
 
   task

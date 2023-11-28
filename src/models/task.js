@@ -11,7 +11,7 @@ const TaskSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: "TO DO",
+    default: "todo",
   },
   assignees: [
     {
