@@ -250,7 +250,7 @@ const updateTaskStatus = async (req, res) => {
     });
   }
 
-  Task.findByIdAndUpdate(taskId, { status: status.toUpperCase() })
+  Task.findByIdAndUpdate(taskId, { status: status })
     .then(() => {
       return res.status(200).send({
         message: "Task status updated successfully",

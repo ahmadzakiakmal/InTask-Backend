@@ -35,10 +35,10 @@ projectRouter.delete("/:projectId/contributors/:contributorUsername", authorizeP
 // Tasks
 projectRouter.get("/:projectId/tasks", /*authorizeContributor,*/ getProjectTasks);
 projectRouter.post("/:projectId/tasks", addTask);
-projectRouter.delete("/:projectId/tasks/:taskId", authorizeProjectOwner, deleteTask);
+projectRouter.delete("/:projectId/tasks/:taskId", /*authorizeProjectOwner,*/ deleteTask);
 projectRouter.post("/:projectId/tasks/:taskId/assignees", authorizeContributor, addAssignee);
 projectRouter.delete("/:projectId/tasks/:taskId/assignees", authorizeContributor, removeAssignee);
-projectRouter.patch("/:projectId/tasks/:taskId", authorizeAssignee, updateTaskStatus);
+projectRouter.patch("/:projectId/tasks/:taskId", /*authorizeAssignee,*/ updateTaskStatus);
 
 
 module.exports = projectRouter;
