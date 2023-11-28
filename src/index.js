@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // ? CORS config
 const cors = require("cors");
-app.use(cors({origin: "*"}));
+app.use(cors({origin: "*", credentials: true}));
 
 // ? DB Connection
 const connectDB = require("./config/connectDB");

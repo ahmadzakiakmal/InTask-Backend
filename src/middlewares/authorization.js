@@ -90,6 +90,11 @@ const authorizeProjectOwner = async (req, res, next) => {
 const authorizeContributor = async (req, res, next) => {
   const { projectId } = req.params;
   const cookies = req.headers.cookie;
+  if(!cookies) 
+    return res.status(401).json({
+      message: "No Cookies",
+      code: 401
+    })
   const Authorization = cookies.split(" ")[0];
   const token = Authorization.split("=")[1].replace(";", "");
 
@@ -120,7 +125,7 @@ const authorizeContributor = async (req, res, next) => {
       });
     }
 
-    if(!project.contributors.includes(user.username)) {
+    if(!project.contributors.includes(user.username) && project.owner !== user.username) {
       return res.status(403).json({
         message: "Contributor resource. Access denied",
         code: 403
