@@ -378,6 +378,21 @@ const deleteProfile = async (req, res) => {
   }
 };
 
+const searchUser = async (req, res) => {
+  const { searchQuery } = req.body;
+  if (!searchQuery) {
+    return res.status(400).json({ message: "Please provide search query" });
+  }
+  try {
+    const users = await User.findOne({
+      username: searchQuery ,
+    });
+    res.status(200).json(users);}
+  catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   register,
   verify,
@@ -386,4 +401,5 @@ module.exports = {
   resetPassword,
   deleteProfile,
   updateProfile,
+  searchUser
 };
