@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // ? CORS config
 const cors = require("cors");
-app.use(cors({origin: "*", credentials: true}));
+app.use(cors({origin: process.env.STATUS === "DEV" ? "http://localhost:3000" : process.env.CLIENT_URL, credentials: true}));
 
 // ? DB Connection
 const connectDB = require("./config/connectDB");
