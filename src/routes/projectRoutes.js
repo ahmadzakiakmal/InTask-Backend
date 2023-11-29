@@ -33,12 +33,12 @@ projectRouter.post("/:projectId/contributors", authorizeProjectOwner, addContrib
 projectRouter.delete("/:projectId/contributors/:contributorUsername", authorizeProjectOwner, removeContributor);
 
 // Tasks
-projectRouter.get("/:projectId/tasks", /*authorizeContributor,*/ getProjectTasks);
-projectRouter.post("/:projectId/tasks", addTask);
-projectRouter.delete("/:projectId/tasks/:taskId", /*authorizeProjectOwner,*/ deleteTask);
+projectRouter.get("/:projectId/tasks", authorizeContributor, getProjectTasks);
+projectRouter.post("/:projectId/tasks", authorizeContributor, addTask);
+projectRouter.delete("/:projectId/tasks/:taskId", authorizeContributor, deleteTask);
 projectRouter.post("/:projectId/tasks/:taskId/assignees", authorizeContributor, addAssignee);
 projectRouter.delete("/:projectId/tasks/:taskId/assignees", authorizeContributor, removeAssignee);
-projectRouter.patch("/:projectId/tasks/:taskId", /*authorizeAssignee,*/ updateTaskStatus);
+projectRouter.patch("/:projectId/tasks/:taskId", authorizeContributor, updateTaskStatus);
 
 
 module.exports = projectRouter;
