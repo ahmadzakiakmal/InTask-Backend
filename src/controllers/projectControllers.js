@@ -25,6 +25,17 @@ const getProjects = async (req, res) => {
   });
 };
 
+const getProject = async (req, res) => {
+  const { projectId } = req.params;
+
+  const project = await Project.findById(projectId);
+  res.status(200).json({
+    message: `Project with id ${projectId}`,
+    code: 200,
+    project,
+  });
+}
+
 // * Create project
 const createProject = async (req, res) => {
   const { title, description } = req.body;
@@ -190,4 +201,5 @@ module.exports = {
   addContributor,
   getProjects,
   getAllProjects,
+  getProject
 };
