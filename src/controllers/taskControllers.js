@@ -71,7 +71,7 @@ const addTask = async (req, res) => {
     name,
     description: description || "No description provided",
     status: status ?? "todo",
-    assignees: assignees == "" ? [] : [assignees],
+    assignees: assignees ?? [],
   });
 
   task

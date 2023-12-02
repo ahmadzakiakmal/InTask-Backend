@@ -18,10 +18,16 @@ const getProjects = async (req, res) => {
   const { username } = req.params;
 
   const projects = await Project.find({$or: [{owner: username}, {contributors: username}]});
+  // get owner username and emoticon of each project
+  const owners = await Promise.all(projects.map(async (project) => {
+    project.owner = await User.findOne({username: project.owner});
+    return `${project.owner.emoticon} ${project.owner.username}`;
+  }));
   res.status(200).json({
     message: `Projects where ${username} is a part of`,
     code: 200,
     projects,
+    owners
   });
 };
 
@@ -34,7 +40,7 @@ const getProject = async (req, res) => {
     code: 200,
     project,
   });
-}
+};
 
 // * Create project
 const createProject = async (req, res) => {
@@ -105,7 +111,7 @@ const updateProject = async (req, res) => {
       err,
     });
   }
-}
+};
 
 // * Delete project
 const deleteProject = async (req, res) => {
