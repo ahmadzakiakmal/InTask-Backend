@@ -393,6 +393,24 @@ const searchUser = async (req, res) => {
   }
 };
 
+const searchMany = async (req, res) => {
+  const { searchquery } = req.params
+  const regex = new RegExp(`.*${searchquery}.*`)
+
+  try {
+    const users = await User.find({
+      $or: [
+        { username: {$regex: regex, $options: "i"} },
+        { email: {$regex: regex, $options: "i"} }
+      ]
+    })
+    res.status(200).json(users)
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+}
+
 module.exports = {
   register,
   verify,
@@ -401,5 +419,6 @@ module.exports = {
   resetPassword,
   deleteProfile,
   updateProfile,
-  searchUser
+  searchUser,
+  searchMany
 };
