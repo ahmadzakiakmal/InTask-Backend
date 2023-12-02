@@ -6,7 +6,8 @@ const {
   deleteProject,
   addContributor,
   getProjects,
-  getProject
+  getProject,
+  updateProject
 } = require("../controllers/projectControllers");
 const { 
   addTask, 
@@ -29,6 +30,7 @@ projectRouter.get("/:username", getProjects);
 projectRouter.post("/", JWTAuthentication, createProject);
 projectRouter.delete("/:projectId", authorizeProjectOwner, deleteProject);
 projectRouter.get("/id/:projectId", getProject)
+projectRouter.put("/:projectId", updateProject)
 
 // Contributors
 projectRouter.post("/:projectId/contributors", authorizeProjectOwner, addContributor);
