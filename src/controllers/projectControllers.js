@@ -135,7 +135,7 @@ const getContributors = async (req, res) => {
       code: 400,
     });
   } else {
-    const project = await Project.findById(projectId).populate("contributors");
+    const project = await Project.findById(projectId);
     if (!project) {
       return res.status(404).json({
         message: "Project not found",
