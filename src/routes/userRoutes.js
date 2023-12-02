@@ -7,7 +7,8 @@ const {
   resetPassword,
   deleteProfile,
   updateProfile,
-  searchUser
+  searchUser,
+  searchMany
 } = require("../controllers/userControllers");
 const { JWTAuthentication } = require("../middlewares/authentication");
 
@@ -19,5 +20,6 @@ userRouter.patch("/reset-password", JWTAuthentication, resetPassword);
 userRouter.delete("/delete-profile/:userId", JWTAuthentication, deleteProfile);
 userRouter.put("/update-profile", JWTAuthentication, updateProfile);
 userRouter.post("/search", JWTAuthentication, searchUser);
+userRouter.get("/search/:searchquery", searchMany);
 
 module.exports = userRouter;

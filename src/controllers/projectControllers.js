@@ -74,6 +74,39 @@ const createProject = async (req, res) => {
   });
 };
 
+// * Update project
+const updateProject = async (req, res) => {
+  const { projectId } = req.params;
+  const { title, description } = req.body;
+
+  try {
+    const project = await Project.findById(projectId);
+
+    if(!project) return res.status(400).json({
+      message: "project not found",
+      code: 400,
+    });
+
+    if(title) project.title = title;
+    if(description) project.description = description;
+
+    await project.save();
+
+    res.status(200).send({
+      message: "Project updated successfully",
+      code: 201,
+      project,
+    });
+  }
+  catch (err) {
+    res.status(500).json({
+      message: "An error occured while updating project",
+      code: 500,
+      err,
+    });
+  }
+}
+
 // * Delete project
 const deleteProject = async (req, res) => {
   const { projectId } = req.params;
@@ -228,5 +261,6 @@ module.exports = {
   addContributor,
   getProjects,
   getAllProjects,
-  getProject
+  getProject,
+  updateProject
 };

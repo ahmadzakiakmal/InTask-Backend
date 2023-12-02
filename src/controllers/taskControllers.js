@@ -1,16 +1,33 @@
 const Task = require("../models/task");
 const Project = require("../models/project");
 const User = require("../models/user");
+const { default: mongoose } = require("mongoose");
 
 // * Get Project Tasks
 const getProjectTasks = async (req, res) => {
   const { projectId } = req.params;
-  if (!projectId) {
+  if (!projectId || projectId === undefined) {
     return res.status(400).json({
       message: "projectId is required",
       code: 400,
     });
-  } else {
+  }
+  // try {
+  //   const convertedProjectId = mongoose.Types.ObjectId(projectId);
+  //   if (!mongoose.Types.ObjectId.isValid(convertedProjectId)) {
+  //     return res.status(400).json({
+  //       message: "Invalid projectId",
+  //       code: 400,
+  //     });
+  //   }
+  // }
+  // catch {
+  //   return res.status(400).json({
+  //     message: "Invalid projectId",
+  //     code: 400,
+  //   });
+  // }
+  try {
     const project = await Project.findById(projectId).populate("tasks");
     if (!project) {
       return res.status(404).json({
@@ -24,6 +41,11 @@ const getProjectTasks = async (req, res) => {
         tasks: project.tasks,
       });
     }
+  } catch {
+    return res.status(500).json({
+      message: "An error occured while retrieving project tasks",
+      code: 500,
+    });
   }
 };
 
@@ -49,7 +71,7 @@ const addTask = async (req, res) => {
     name,
     description: description || "No description provided",
     status: status ?? "todo",
-    assignees: assignees == "" ? [] : [assignees]
+    assignees: assignees == "" ? [] : [assignees],
   });
 
   task
@@ -208,7 +230,7 @@ const removeAssignee = async (req, res) => {
   const user = await User.findOne({
     $or: [{ username: identifier }, { email: identifier }],
   });
-  Task.findByIdAndUpdate(taskId, {$pull: {assignees: user.username}})
+  Task.findByIdAndUpdate(taskId, { $pull: { assignees: user.username } })
     .then(() => {
       return res.status(200).send({
         message: "Assignee deleted successfully",
