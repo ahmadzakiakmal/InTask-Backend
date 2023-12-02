@@ -94,7 +94,7 @@ const authorizeContributor = async (req, res, next) => {
     return res.status(401).json({
       message: "No Cookies",
       code: 401
-    })
+    });
   const Authorization = cookies.split(" ")[0];
   const token = Authorization.split("=")[1].replace(";", "");
 

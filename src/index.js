@@ -28,6 +28,13 @@ app.use(cors({origin: process.env.STATUS === "DEV" ? "http://localhost:3000" : p
 const connectDB = require("./config/connectDB");
 connectDB(process.env.MONGO_URI);
 
+// ! Error handler
+process.on("unhandledRejection", (reason, p) => {
+  console.error("Unhandled Rejection at Promise:", p, "reason:", reason);
+  // logs the error and the promise that caused it
+});
+
+
 // * Start of routes
 
 app.get("/", (req, res) => {
