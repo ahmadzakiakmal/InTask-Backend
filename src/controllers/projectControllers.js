@@ -92,6 +92,32 @@ const deleteProject = async (req, res) => {
   });
 };
 
+// * Get Contributors
+const getContributors = async (req, res) => {
+  const { projectId } = req.params;
+  
+  if (!projectId) {
+    return res.status(400).json({
+      message: "projectId is required",
+      code: 400,
+    });
+  } else {
+    const project = await Project.findById(projectId).populate("contributors");
+    if (!project) {
+      return res.status(404).json({
+        message: "Project not found",
+        code: 404,
+      });
+    } else {
+      return res.status(200).send({
+        message: "Project contributors retrieved successfully",
+        code: 200,
+        contributors: project.contributors,
+      });
+    }
+  }
+};
+
 // * Add contributor
 const addContributor = async (req, res) => {
   const { projectId } = req.params;
@@ -198,6 +224,7 @@ module.exports = {
   createProject,
   removeContributor,
   deleteProject,
+  getContributors,
   addContributor,
   getProjects,
   getAllProjects,

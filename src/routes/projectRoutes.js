@@ -4,6 +4,7 @@ const {
   createProject,
   removeContributor,
   deleteProject,
+  getContributors,
   addContributor,
   getProjects,
   getProject
@@ -31,6 +32,7 @@ projectRouter.delete("/:projectId", authorizeProjectOwner, deleteProject);
 projectRouter.get("/id/:projectId", getProject)
 
 // Contributors
+projectRouter.get("/:projectId/contributors", authorizeContributor, getContributors);
 projectRouter.post("/:projectId/contributors", authorizeProjectOwner, addContributor);
 projectRouter.delete("/:projectId/contributors/:contributorUsername", authorizeProjectOwner, removeContributor);
 
