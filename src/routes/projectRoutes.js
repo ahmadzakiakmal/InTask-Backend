@@ -23,7 +23,7 @@ const { JWTAuthentication } = require("../middlewares/authentication");
 const { 
   authorizeProjectOwner, 
   authorizeContributor, 
-  authorizeAssignee 
+  // authorizeAssignee 
 } = require("../middlewares/authorization");
 
 // Projects

@@ -394,8 +394,8 @@ const searchUser = async (req, res) => {
 };
 
 const searchMany = async (req, res) => {
-  const { searchquery } = req.params
-  const regex = new RegExp(`.*${searchquery}.*`)
+  const { searchquery } = req.params;
+  const regex = new RegExp(`.*${searchquery}.*`);
 
   try {
     const users = await User.find({
@@ -403,13 +403,24 @@ const searchMany = async (req, res) => {
         { username: {$regex: regex, $options: "i"} },
         { email: {$regex: regex, $options: "i"} }
       ]
-    })
-    res.status(200).json(users)
+    });
+    const filteredUsers = users.map((u) => {
+      return {
+        username: u.username,
+        email: u.email,
+        emoticon: u.emoticon
+      };
+    });
+    console.log(filteredUsers);
+    res.status(200).json({
+      message: "Users retrieved successfully",
+      users: filteredUsers
+    });
   }
   catch (err) {
     res.status(500).json(err);
   }
-}
+};
 
 module.exports = {
   register,

@@ -1,7 +1,6 @@
 const Task = require("../models/task");
 const Project = require("../models/project");
 const User = require("../models/user");
-const { default: mongoose } = require("mongoose");
 
 // * Get Project Tasks
 const getProjectTasks = async (req, res) => {
@@ -12,23 +11,23 @@ const getProjectTasks = async (req, res) => {
       code: 400,
     });
   }
-  // try {
-  //   const convertedProjectId = mongoose.Types.ObjectId(projectId);
-  //   if (!mongoose.Types.ObjectId.isValid(convertedProjectId)) {
-  //     return res.status(400).json({
-  //       message: "Invalid projectId",
-  //       code: 400,
-  //     });
-  //   }
-  // }
-  // catch {
-  //   return res.status(400).json({
-  //     message: "Invalid projectId",
-  //     code: 400,
-  //   });
-  // }
   try {
     const project = await Project.findById(projectId).populate("tasks");
+    const assignees = await Promise.all(
+      project.tasks.map(async (task) => {
+        const users = await Promise.all(
+          task.assignees.map(async (username) => {
+            const user = await User.findOne({ username });
+            return {
+              username: user.username,
+              emoticon: user.emoticon,
+            };
+          })
+        );
+        return users;
+      })
+    );
+
     if (!project) {
       return res.status(404).json({
         message: "Project not found",
@@ -39,6 +38,7 @@ const getProjectTasks = async (req, res) => {
         message: "Project tasks retrieved successfully",
         code: 200,
         tasks: project.tasks,
+        assignees,
       });
     }
   } catch {
