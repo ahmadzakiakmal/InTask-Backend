@@ -420,7 +420,6 @@ const searchMany = async (req, res) => {
         emoticon: u.emoticon
       };
     });
-    console.log(filteredUsers);
     res.status(200).json({
       message: "Users retrieved successfully",
       users: filteredUsers
