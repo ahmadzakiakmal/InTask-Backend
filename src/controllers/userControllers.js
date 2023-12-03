@@ -394,9 +394,15 @@ const searchUser = async (req, res) => {
   }
   try {
     const users = await User.findOne({
-      username: searchQuery ,
+      username: searchQuery,
     });
-    res.status(200).json(users);}
+    console.log(users);
+    const filteredUsers = {
+      username: users.username,
+      email: users.email,
+      emoticon: users.emoticon
+    };
+    res.status(200).json(filteredUsers);}
   catch (err) {
     res.status(500).json(err);
   }
