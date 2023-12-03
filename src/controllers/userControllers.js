@@ -358,11 +358,10 @@ const resetPassword = async (req, res) => {
 // * User update profile
 const updateProfile = async (req, res) => {
   try {
-    const email = req.user.email;
-    const { username, realName } = req.body;
+    const { username, realName, emoticon } = req.body;
     const user = await User.findOneAndUpdate(
-      { email: email },
-      { username, realName }
+      {username: username},
+      { emoticon, realName }
     );
     res.status(201).json({ message: "User Profile updated", user });
   } catch (err) {
@@ -400,7 +399,8 @@ const searchUser = async (req, res) => {
     const filteredUsers = {
       username: users.username,
       email: users.email,
-      emoticon: users.emoticon
+      emoticon: users.emoticon,
+      realName: users.realName,
     };
     res.status(200).json(filteredUsers);}
   catch (err) {
