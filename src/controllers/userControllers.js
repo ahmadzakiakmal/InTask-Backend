@@ -27,6 +27,15 @@ const register = async (req, res) => {
     });
   }
 
+  // prevent characters like .,$,/,etc
+  const regex = /^[a-zA-Z0-9_]*$/;
+  if (!regex.test(username)) {
+    return res.status(400).send({
+      message: "Username can only contain letters, numbers, and underscores",
+      code: 400,
+    });
+  }
+
   // Check if user already exists
   const check = await User.findOne({
     $or: [{ username: username }, { email: email }],
