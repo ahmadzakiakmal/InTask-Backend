@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const Task = require("../models/task");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const process = require("process");
@@ -17,7 +18,7 @@ const getAllProjects = async (req, res) => {
 const getProjects = async (req, res) => {
   const { username } = req.params;
 
-  const projects = await Project.find({$or: [{owner: username}, {contributors: username}]});
+  const projects = await Project.find({$or: [{owner: username}, {contributors: username}]}).populate("tasks", "status");
   // get owner username and emoticon of each project
   const owners = await Promise.all(projects.map(async (project) => {
     project.owner = await User.findOne({username: project.owner});
