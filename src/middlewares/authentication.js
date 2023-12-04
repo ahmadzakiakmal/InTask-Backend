@@ -3,7 +3,6 @@ const process = require("process");
 
 const JWTAuthentication = (req, res, next) => {
   const cookies = req.headers.cookie;
-  console.log(cookies);
   if(!cookies) {
     return res.status(401).json({
       message: "JWT token is missing",

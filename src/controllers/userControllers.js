@@ -395,7 +395,6 @@ const searchUser = async (req, res) => {
     const users = await User.findOne({
       username: searchQuery,
     });
-    console.log(users);
     const filteredUsers = {
       username: users.username,
       email: users.email,

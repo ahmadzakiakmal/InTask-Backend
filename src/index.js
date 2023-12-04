@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 // ? Dotenv config
 dotenv.config({ path: "./src/config/config.env"});
 const process = require("process");
-console.log(process.env.MONGO_URI);
 
 // ? Morgan logger config
 const morgan = require("morgan");
@@ -30,8 +29,8 @@ connectDB(process.env.MONGO_URI);
 
 // ! Error handler
 process.on("unhandledRejection", (reason, p) => {
+  // eslint-disable-next-line no-console
   console.error("Unhandled Rejection at Promise:", p, "reason:", reason);
-  // logs the error and the promise that caused it
 });
 
 
