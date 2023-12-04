@@ -17,11 +17,8 @@ const getProjectTasks = async (req, res) => {
       project.tasks.map(async (task) => {
         const users = await Promise.all(
           task.assignees.map(async (username) => {
-            const user = await User.findOne({ username });
-            return {
-              username: user.username,
-              emoticon: user.emoticon,
-            };
+            const user = await User.findOne({ username }).select("username emoticon");
+            return user;
           })
         );
         return users;
