@@ -244,9 +244,9 @@ const removeAssignee = async (req, res) => {
 };
 
 // * Update task status
-const updateTaskStatus = async (req, res) => {
+const updateTask = async (req, res) => {
   const { projectId, taskId } = req.params;
-  const { status } = req.body;
+  const { status, name, description, assignees } = req.body;
 
   if (!projectId) {
     return res.status(400).json({
@@ -262,14 +262,7 @@ const updateTaskStatus = async (req, res) => {
     });
   }
 
-  if (!status) {
-    return res.status(400).json({
-      message: "status is required",
-      code: 400,
-    });
-  }
-
-  Task.findByIdAndUpdate(taskId, { status: status })
+  Task.findByIdAndUpdate(taskId, { name, description, status, assignees })
     .then(() => {
       return res.status(200).send({
         message: "Task status updated successfully",
@@ -289,7 +282,7 @@ module.exports = {
   getProjectTasks,
   addTask,
   deleteTask,
-  updateTaskStatus,
+  updateTaskStatus: updateTask,
   addAssignee,
   removeAssignee,
 };
