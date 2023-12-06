@@ -4,9 +4,9 @@
   "description": "Backend for InTask web app",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "dev": "nodemon index.js",
     "lint": "eslint .",
-    "start": "node ./src/index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",

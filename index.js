@@ -24,7 +24,7 @@ const cors = require("cors");
 app.use(cors({origin: process.env.STATUS === "DEV" ? "http://localhost:3000" : process.env.CLIENT_URL, credentials: true}));
 
 // ? DB Connection
-const connectDB = require("./config/connectDB");
+const connectDB = require("./src/config/connectDB");
 connectDB(process.env.MONGO_URI);
 
 // ! Error handler
@@ -66,13 +66,13 @@ app.get("/", (req, res) => {
 </main>`);
 });
 
-const userRouter = require("./routes/userRoutes");
+const userRouter = require("./src/routes/userRoutes");
 app.use("/user", userRouter);
 
-const projectRouter = require("./routes/projectRoutes");
+const projectRouter = require("./src/routes/projectRoutes");
 app.use("/project", projectRouter);
 
-const adminRouter = require("./routes/adminRoutes");
+const adminRouter = require("./src/routes/adminRoutes");
 app.use("/admin", adminRouter);
 
 // * End of routes
