@@ -182,13 +182,6 @@ const addContributor = async (req, res) => {
       code: 404,
     });
   }
-  // check if contributor is already added
-  if(project.contributors.includes(identifier)) {
-    return res.status(400).json({
-      message: "Contributor already added",
-      code: 400,
-    });
-  }
   const user = await User.findOne({
     $or: [{ email: identifier }, { username: identifier }],
   });
@@ -196,6 +189,13 @@ const addContributor = async (req, res) => {
     return res.status(404).json({
       message: "User not found",
       code: 404,
+    });
+  }
+  // check if contributor is already added
+  if(project.contributors.includes(user.username)) {
+    return res.status(400).json({
+      message: "User is already a contributor",
+      code: 400,
     });
   }
 
