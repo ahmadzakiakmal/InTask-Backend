@@ -10,8 +10,8 @@ PAW Project - Backend for InTask Web Application
 ## 🔗 Our Links 🔗
 | Deskripsi | Link |
 | --- | --- |
-| Slide Presentasi | |
-| Video Presentasi | |
+| Slide Presentasi | [PPT InTask](https://drive.google.com/file/d/1Wj2QnHq6RCv6jgqDbp2g9oAI6G16t5Bx/view?usp=sharing) |
+| Video Presentasi | https://drive.google.com/file/d/1dMk_ouNxpGoq1h5Tpm3X6fRHWjIWWhG6/view?usp=sharing |
 | API Documentation Postman | https://bit.ly/InTaskPostman |
 | Backend Web Deployed | https://in-task-api.vertech.id |
 | Frontend Web Deployed | https://in-task.vertech.id |
