@@ -21,7 +21,7 @@ PAW Project - Backend for InTask Web Application
 ## More information about InTask ❗
 InTask (Infinite Task) merupakan aplikasi web manajemen tugas yang membantu pengguna untuk membuat, mengelola, dan memonitor project atau tugas dengan lebih efisien.
 
-## Our main fitur
+## Our main feature
 ### Project 📃
 Pengguna dapat membuat serta mengelola project-project yang akan atau sedang dilakukan. Pengguna dapat mengisi tugas tugas atau task yang akan dilakukan (to do), yang sedang dikerjakan (doing), dan yang sudah selesai dikerjakan (done).
 ### Task 📝
@@ -31,6 +31,25 @@ Pengguna dapat membuat dan mengelola tugas-tugas individual dengan memberikan st
 - Express.js
 - MongoDB
 - Vertech
+
+## How to run locally
+1. You need to clone this repository. Use the command below
+   ````````````
+   git clone https://github.com/ahmadzaki2975/InTask-Backend.git
+   ````````````
+2. Go to InTask-Backend directory
+3. Install the NPM package
+   ````````````
+   npm install
+   ````````````   
+4. Run the App
+   ````````````
+   npm run dev
+   ````````````
+5. Check if the server is running on
+   ````````````
+   http://localhost:5000/
+   ````````````
 
 ## Documentation 
 
