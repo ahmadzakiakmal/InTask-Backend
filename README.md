@@ -26,6 +26,12 @@ InTask (Infinite Task) merupakan aplikasi web manajemen tugas yang membantu peng
 Pengguna dapat membuat serta mengelola project-project yang akan atau sedang dilakukan. Pengguna dapat mengisi tugas tugas atau task yang akan dilakukan (to do), yang sedang dikerjakan (doing), dan yang sudah selesai dikerjakan (done).
 ### Task 📝
 Pengguna dapat membuat dan mengelola tugas-tugas individual dengan memberikan status tugas, seperti Todo, In Progress, dan Done.
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Vertech
+- Tailwind CSS
 
 ## Documentation 
 
