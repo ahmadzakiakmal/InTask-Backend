@@ -16,6 +16,7 @@ PAW Project - Backend for InTask Web Application
 | Backend Web Deployed | https://in-task-api.vertech.id |
 | Frontend Web Deployed | https://in-task.vertech.id |
 | Frontend Github | https://github.com/ahmadzaki2975/InTask-Frontend |
+| Hi-Fi Prototype | [Figma InTask](https://www.figma.com/file/tCpRuH5zRwOenqGuYRNW0Y/hi-fi-project-paw?type=design&node-id=0%3A1&mode=design&t=ghpvIVc7NnBOLcb2-1) |
 
 ## More information about InTask ❗
 InTask (Infinite Task) merupakan aplikasi web manajemen tugas yang membantu pengguna untuk membuat, mengelola, dan memonitor project atau tugas dengan lebih efisien.
