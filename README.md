@@ -31,7 +31,6 @@ Pengguna dapat membuat dan mengelola tugas-tugas individual dengan memberikan st
 - Express.js
 - MongoDB
 - Vertech
-- Tailwind CSS
 
 ## Documentation 
 
